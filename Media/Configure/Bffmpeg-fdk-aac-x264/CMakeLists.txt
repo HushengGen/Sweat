@@ -8,7 +8,7 @@ if ( NOT EXISTS ${ANDROID_NDK_ROOT} )
 endif()
 
 if (NOT DEFINED QUPAI_TARGET_PLATFORM )
-    message ( FATAL_ERROR "QUPAI_TARGET_PLATFORM not defined, please set QUPAI_TARGET_PLATFORM= [x86, x86_64, arm, arm64]")
+    message ( FATAL_ERROR "QUPAI_TARGET_PLATFORM not defined, please set QUPAI_TARGET_PLATFORM= [x86, x86_64, armeabi-v7a, arm64-v8a]")
 endif()
 
 if ( "${QUPAI_TARGET_PLATFORM}" STREQUAL "x86")
@@ -51,7 +51,7 @@ elseif ( "${QUPAI_TARGET_PLATFORM}" STREQUAL "x86_64")
 
     set (EXTRA_OPTIONS "")
 
-elseif ( "${QUPAI_TARGET_PLATFORM}" STREQUAL "arm")
+elseif ( "${QUPAI_TARGET_PLATFORM}" STREQUAL "armeabi-v7a")
     
     find_path( TOOLCHAIN_ROOT bin ${ANDROID_NDK_ROOT}/toolchains/arm-linux-androideabi-4.8/prebuilt/*  NO_DEFAULT_PATH)
 
@@ -72,7 +72,7 @@ elseif ( "${QUPAI_TARGET_PLATFORM}" STREQUAL "arm")
     set (ARCH    "armv7-a")
 
     set (EXTRA_OPTIONS "--extra-cflags=-DANDROID" "--extra-cflags=-gdwarf-2" "--extra-cflags=-mfloat-abi=softfp" "--extra-cflags=-mfpu=vfpv3-d16" "--extra-cflags=-march=armv7-a")
-elseif ( "${QUPAI_TARGET_PLATFORM}" STREQUAL "arm64")
+elseif ( "${QUPAI_TARGET_PLATFORM}" STREQUAL "arm64-v8a")
     find_path( TOOLCHAIN_ROOT bin  ${ANDROID_NDK_ROOT}/toolchains/aarch64-linux-android-4.9/prebuilt/* NO_DEFAULT_PATH)
     include ( CMakeForceCompiler )
     find_program ( CMAKE_C_COMPILER   aarch64-linux-android-gcc  ${TOOLCHAIN_ROOT}/bin NO_DEFAULT_PATH )
@@ -90,7 +90,7 @@ elseif ( "${QUPAI_TARGET_PLATFORM}" STREQUAL "arm64")
 
     set (EXTRA_OPTIONS "--extra-cflags=-DANDROID")
 else ()
-    message( FATAL_ERROR "QUPAI_TARGET_PLATFORM not defined, please set QUPAI_TARGET_PLATFORM= [x86, x86_64, arm, arm64]" )
+    message( FATAL_ERROR "QUPAI_TARGET_PLATFORM not defined, please set QUPAI_TARGET_PLATFORM= [x86, x86_64, armeabi-v7a, arm64-v8a]" )
 endif()
 
 # set ( LIBRARY_INSTALL_DIR ${CMAKE_SOURCE_DIR}/libs)
@@ -146,6 +146,9 @@ externalproject_add(
 set(FDK-AAC_INSTALL_DIR ${LIBRARY_INSTALL_DIR}/fdk-aac/${QUPAI_TARGET_PLATFORM})
 set(X264_INSTALL_DIR ${LIBRARY_INSTALL_DIR}/x264/${QUPAI_TARGET_PLATFORM})
 
+# set(FDK-AAC_INSTALL_DIR /wls/Media/fdk-aac/arm)
+# set(X264_INSTALL_DIR /wls/Media/x264/arm)
+message(STATUS "FDK-X264_INSTALL_DIR ${X264_INSTALL_DIR}")
 message(STATUS "FDK-AAC_INSTALL_DIR ${FDK-AAC_INSTALL_DIR}")
 externalproject_add(
   ffmpeg-project

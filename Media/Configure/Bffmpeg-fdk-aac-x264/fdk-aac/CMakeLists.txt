@@ -44,7 +44,7 @@ elseif ( "${QUPAI_TARGET_PLATFORM}" STREQUAL "x86_64")
         -fno-rtti
         -fno-exceptions
     )
-elseif ( "${QUPAI_TARGET_PLATFORM}" STREQUAL "arm")
+elseif ( "${QUPAI_TARGET_PLATFORM}" STREQUAL "armeabi-v7a")
     
     find_path( TOOLCHAIN_ROOT bin ${ANDROID_NDK_ROOT}/toolchains/arm-linux-androideabi-4.8/prebuilt/*  NO_DEFAULT_PATH)
 
@@ -71,7 +71,7 @@ elseif ( "${QUPAI_TARGET_PLATFORM}" STREQUAL "arm")
         -fno-exceptions
     )
 
-elseif ( "${QUPAI_TARGET_PLATFORM}" STREQUAL "arm64")
+elseif ( "${QUPAI_TARGET_PLATFORM}" STREQUAL "arm64-v8a")
     find_path( TOOLCHAIN_ROOT bin  ${ANDROID_NDK_ROOT}/toolchains/aarch64-linux-android-4.9/prebuilt/* NO_DEFAULT_PATH)
     message (STATUS "arm64 TOOLCHAIN_ROOT " ${TOOLCHAIN_ROOT})
     include ( CMakeForceCompiler )
@@ -94,7 +94,7 @@ elseif ( "${QUPAI_TARGET_PLATFORM}" STREQUAL "arm64")
     
 else ()
 
-    message( FATAL_ERROR "QUPAI_TARGET_PLATFORM not defined, please set QUPAI_TARGET_PLATFORM= [x86, x86_64, arm, arm64]" )
+    message( FATAL_ERROR "QUPAI_TARGET_PLATFORM not defined, please set QUPAI_TARGET_PLATFORM= [x86, x86_64, armeabi-v7a, arm64-v8a]" )
 
 endif()
 
